@@ -33,7 +33,7 @@
         >
           Github
         </a> - <a
-          href="mailto:dyumin.peter@yandex.com"
+          href="mailto:peter.dyumin@gmail.com"
           target="_blank"
         >
           Contact
@@ -108,9 +108,33 @@
       </svg>
     </div>
     <script>
+      const darkThemeName = 'dark';
+      const lightThemeName = 'light';
+      const themes = {
+        [darkThemeName]: `
+          --accent: #0290B0;
+          --background: #050505;
+          --text: #F2F2F2;        
+        `,
+        [lightThemeName]: `
+          --accent: #020070;
+          --background: #FFFFFF;
+          --text: #2F2F2F;
+        `,
+      };
+      let selectedTheme = localStorage.getItem('theme');
+      if (!selectedTheme) {
+        selectedTheme = lightThemeName;
+        localStorage.setItem('theme', selectedTheme);
+      }
       if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
         document.querySelector("link[rel~='icon']").href = 'favicon-light.svg';
+        if (!selectedTheme) {
+          selectedTheme = darkThemeName;
+          localStorage.setItem('theme', selectedTheme);
+        }
       }
+      document.getElementsByTagName('body')[0].style = themes[selectedTheme];
       if (/Mobi/i.test(window.navigator.userAgent)) {
         document.getElementById('content').classList.add('main-mobile');
         document.getElementById('waves').classList.add('waves-mobile');

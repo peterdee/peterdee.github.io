@@ -29,6 +29,7 @@ footer {
   bottom: calc(var(--spacer) + var(--spacer) / 2);
   display: flex;
   font-size: calc(var(--spacer) - (var(--spacer) / 8));
+  font-weight: 300;
   justify-content: center;
   position: fixed;
   width: 100%;
@@ -59,6 +60,7 @@ main {
   height: -webkit-fill-available;
 }
 .sub, .sub-last {
+  font-weight: 300;
   font-size: 1em;
 }
 .sub {
