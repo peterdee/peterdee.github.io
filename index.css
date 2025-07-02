@@ -1,8 +1,5 @@
 :root {
-  --accent: #020070;
-  --background: #FFFFFF;
   --spacer: 16px;
-  --text: #2F2F2F;
 }
 * {
   background-color: var(--background);
@@ -27,6 +24,7 @@ a, a:hover, a:visited {
 footer {
   align-items: center;
   bottom: calc(var(--spacer) + var(--spacer) / 2);
+  color: var(--text);
   display: flex;
   font-size: calc(var(--spacer) - (var(--spacer) / 8));
   font-weight: 300;
