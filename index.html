@@ -20,23 +20,26 @@
   </head>
   <body>
     <main id="content">
-      <div class="highlight">
+      <div class="name">
         Peter Dyumin
       </div>
-      <div class="sub">
+      <div class="row">
         Lead Fullstack Developer, Team Lead
       </div>
-      <div class="sub-last">
+      <div class="row">
+        <a
+          href="mailto:peter.dyumin@gmail.com"
+          target="_blank"
+        >
+          Contact
+        </a>
+      </div>
+      <div class="row-last">
         <a
           href="https://github.com/peterdee"
           target="_blank"
         >
           Github
-        </a> - <a
-          href="mailto:peter.dyumin@gmail.com"
-          target="_blank"
-        >
-          Contact
         </a>
       </div>
     </main>
@@ -82,25 +85,25 @@
         </defs>
         <g class="parallax">
           <use
-            fill="rgba(025, 185, 205, 0.6)"
+            fill="rgba(205, 205, 205, 0.7)"
             x="48"
             xlink:href="#gentle-wave"
             y="0"
           />
           <use
-            fill="rgba(025, 185, 205, 0.4)"
+            fill="rgba(205, 205, 205, 0.5)"
             x="48"
             xlink:href="#gentle-wave"
             y="3"
           />
           <use
-            fill="rgba(025, 185, 205, 0.2)"
+            fill="rgba(205, 205, 205, 0.3)"
             x="48"
             xlink:href="#gentle-wave"
             y="5"
           />
           <use
-            fill="rgba(025, 185, 205, 0.8)"
+            fill="rgba(205, 205, 205, 0.9)"
             x="48"
             xlink:href="#gentle-wave"
             y="7"
@@ -113,12 +116,14 @@
       const lightThemeName = 'light';
       const themes = {
         [darkThemeName]: `
-          --accent: #0290B0;
-          --background: #050505;
-          --text: #F2F2F2;        
+          --accent: #E0F0FF;
+          --accent-dark: #2090B0;
+          --background: #1F1F24;
+          --text: #FFFFFF;        
         `,
         [lightThemeName]: `
           --accent: #020070;
+          --accent-dark: #010040;
           --background: #FFFFFF;
           --text: #2F2F2F;
         `,
