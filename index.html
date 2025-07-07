@@ -135,8 +135,11 @@
       </svg>
     </div>
     <script>
+      const darkFavicon = 'favicon.svg';
       const darkThemeName = 'dark';
+      const lightFavicon = 'favicon-light.svg';
       const lightThemeName = 'light';
+      const storageKey = 'theme';
       const themes = {
         [darkThemeName]: `
           --accent: #E0F0FF;
@@ -151,23 +154,24 @@
           --text: #2F2F2F;
         `,
       };
-      let selectedTheme = localStorage.getItem('theme');
+
+      let selectedTheme = localStorage.getItem(storageKey);
       if (selectedTheme !== darkThemeName && selectedTheme !== lightThemeName) {
         selectedTheme = '';
       }
       if (!selectedTheme) {
         selectedTheme = lightThemeName;
-        localStorage.setItem('theme', selectedTheme);
+        localStorage.setItem(storageKey, selectedTheme);
       }
       if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-        document.querySelector(`link[rel~='icon']`).href = 'favicon-light.svg';
+        document.querySelector(`link[rel~='icon']`).href = lightFavicon;
         if (!selectedTheme) {
           selectedTheme = darkThemeName;
-          localStorage.setItem('theme', selectedTheme);
+          localStorage.setItem(storageKey, selectedTheme);
         }
       }
       if (selectedTheme === darkThemeName) {
-        document.getElementById('logo').src = 'favicon-light.svg';
+        document.getElementById('logo').src = lightFavicon;
       }
       document.getElementsByTagName('body')[0].style = themes[selectedTheme];
 
@@ -176,12 +180,15 @@
       themeSwitch.addEventListener(
         'change',
         (event) => {
-          const newTheme = event.target.checked
-            ? lightThemeName
-            : darkThemeName;
-          // TODO: change logo as well
+          let newLogo = lightFavicon;
+          let newTheme = darkThemeName;
+          if (event.target.checked) {
+            newLogo = darkFavicon;
+            newTheme = lightThemeName;
+          }
+          document.getElementById('logo').src = newLogo;
           document.getElementsByTagName('body')[0].style = themes[newTheme];
-          localStorage.setItem('theme', newTheme);
+          localStorage.setItem(storageKey, newTheme);
         },
       );
 
