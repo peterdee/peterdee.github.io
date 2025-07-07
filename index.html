@@ -10,6 +10,13 @@
       href="/index.css"
       rel="stylesheet"
     />
+    <link
+      crossorigin="anonymous"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+      integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+      referrerpolicy="no-referrer"
+      rel="stylesheet"
+    />
     <meta
       content="width=device-width, initial-scale=1"
       name="viewport"
@@ -19,6 +26,22 @@
     </title>
   </head>
   <body>
+    <div class="theme-switch">
+      <input
+        class="checkbox"
+        id="theme-switch"
+        type="checkbox"
+      />
+      <label
+        for="theme-switch"
+        class="checkbox-label"
+        title="Switch theme"
+      >
+        <i class="fas fa-moon"></i>
+        <i class="fas fa-sun"></i>
+        <span class="ball"></span>
+      </label>
+    </div>
     <main id="content">
       <div class="name">
         Peter Dyumin
@@ -112,8 +135,11 @@
       </svg>
     </div>
     <script>
+      const darkFavicon = 'favicon.svg';
       const darkThemeName = 'dark';
+      const lightFavicon = 'favicon-light.svg';
       const lightThemeName = 'light';
+      const storageKey = 'theme';
       const themes = {
         [darkThemeName]: `
           --accent: #E0F0FF;
@@ -123,30 +149,49 @@
         `,
         [lightThemeName]: `
           --accent: #020070;
-          --accent-dark: #010040;
+          --accent-dark: #000040;
           --background: #FFFFFF;
           --text: #2F2F2F;
         `,
       };
-      let selectedTheme = localStorage.getItem('theme');
+
+      let selectedTheme = localStorage.getItem(storageKey);
       if (selectedTheme !== darkThemeName && selectedTheme !== lightThemeName) {
         selectedTheme = '';
       }
       if (!selectedTheme) {
         selectedTheme = lightThemeName;
-        localStorage.setItem('theme', selectedTheme);
+        localStorage.setItem(storageKey, selectedTheme);
       }
       if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-        document.querySelector(`link[rel~='icon']`).href = 'favicon-light.svg';
+        document.querySelector(`link[rel~='icon']`).href = lightFavicon;
         if (!selectedTheme) {
           selectedTheme = darkThemeName;
-          localStorage.setItem('theme', selectedTheme);
+          localStorage.setItem(storageKey, selectedTheme);
         }
       }
       if (selectedTheme === darkThemeName) {
-        document.getElementById('logo').src = 'favicon-light.svg';
+        document.getElementById('logo').src = lightFavicon;
       }
       document.getElementsByTagName('body')[0].style = themes[selectedTheme];
+
+      const themeSwitch = document.getElementById('theme-switch');
+      themeSwitch.checked = selectedTheme === lightThemeName;
+      themeSwitch.addEventListener(
+        'change',
+        (event) => {
+          let newLogo = lightFavicon;
+          let newTheme = darkThemeName;
+          if (event.target.checked) {
+            newLogo = darkFavicon;
+            newTheme = lightThemeName;
+          }
+          document.getElementById('logo').src = newLogo;
+          document.getElementsByTagName('body')[0].style = themes[newTheme];
+          localStorage.setItem(storageKey, newTheme);
+        },
+      );
+
       if (/Mobi/i.test(window.navigator.userAgent)) {
         document.getElementById('content').classList.add('main-mobile');
         document.getElementById('waves').classList.add('waves-mobile');
